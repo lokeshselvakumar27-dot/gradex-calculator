@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gradex | IT Department</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Iceberg&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(6,182,212,.18), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(59,130,246,.18), transparent 30%),
+        linear-gradient(135deg, #07111f, #0b1f3a 50%, #06131f);
+}
+
+/* TECH BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .18;
+    background-image:
+        linear-gradient(rgba(6,182,212,.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,.25) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 25px auto;
+    padding: 30px;
+    background: rgba(255,255,255,.97);
+    color: #17233c;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+
+.header {
+    text-align: center;
+    padding: 10px 0 25px;
+}
+
+.header .badge {
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 30px;
+    background: #e0f7fa;
+    color: #007c91;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+h1 {
+    margin: 15px 0 8px;
+    font-family: "Iceberg", sans-serif;
+    font-size: 42px;
+    color: #17233c;
+}
+
+.subtitle {
+    color: #64748b;
+}
+
+#dialogue {
+    margin: 20px 0;
+    padding: 15px;
+    text-align: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#e0f7fa,#eff6ff);
+    color: #155e75;
+    font-weight: 600;
+}
+
+.section {
+    margin-top: 25px;
+    padding: 22px;
+    border: 1px solid #dbe5ef;
+    border-radius: 15px;
+    background: #ffffff;
+}
+
+h2 {
+    margin-top: 0;
+    color: #17233c;
+}
+
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 700;
+    text-align: left;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    outline: none;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6,182,212,.12);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.subject {
+    margin: 14px 0;
+    padding: 16px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.subject-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.credit {
+    color: #0891b2;
+    font-size: 13px;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg,#2563eb,#06b6d4);
+    transition: .25s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(6,182,212,.25);
+}
+
+.btn-green {
+    background: linear-gradient(135deg,#059669,#10b981);
+}
+
+.btn-purple {
+    background: linear-gradient(135deg,#7c3aed,#a855f7);
+}
+
+.btn-orange {
+    background: linear-gradient(135deg,#ea580c,#f59e0b);
+}
+
+.btn-red {
+    background: linear-gradient(135deg,#dc2626,#ef4444);
+}
+
+.btn-dark {
+    background: linear-gradient(135deg,#17233c,#334155);
+}
+
+#result {
+    margin-top: 25px;
+}
+
+.result-card {
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#f8fafc,#eef6ff);
+    border: 1px solid #dbe5ef;
+}
+
+.result-number {
+    font-size: 40px;
+    font-weight: 800;
+    color: #0891b2;
+}
+
+.classification {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 800;
+}
+
+.excellent {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.very-good {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.good {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.average {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.needs {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+th,
+td {
+    padding: 11px;
+    border: 1px solid #dbe5ef;
+    text-align: center;
+}
+
+th {
+    background: #17233c;
+    color: white;
+}
+
+.chart-box {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid #dbe5ef;
+    border-radius: 15px;
+}
+
+#certificate {
+    display: none;
+    position: relative;
+    z-index: 5;
+    max-width: 1100px;
+    margin: 40px auto;
+    color: #17233c;
+}
+
+.certificate {
+    width: 100%;
+    min-height: 700px;
+    background: #fdfcf8;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0,0,0,.35);
+}
+
+.certificate-top {
+    height: 150px;
+    background: #17233c;
+    color: white;
+    padding: 35px 55px;
+    position: relative;
+}
+
+.certificate-top::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    width: 100%;
+    height: 40px;
+    background: #c9a227;
+    clip-path: polygon(
+        0 40%,5% 65%,10% 40%,15% 65%,20% 40%,
+        25% 65%,30% 40%,35% 65%,40% 40%,45% 65%,
+        50% 40%,55% 65%,60% 40%,65% 65%,70% 40%,
+        75% 65%,80% 40%,85% 65%,90% 40%,95% 65%,
+        100% 40%,100% 100%,0 100%
+    );
+}
+
+.college-name {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.location {
+    margin-top: 7px;
+    font-size: 13px;
+    opacity: .8;
+}
+
+.seal {
+    position: absolute;
+    right: 55px;
+    top: 25px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: #c9a227;
+    border: 5px solid #f5e6a8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 800;
+    font-size: 11px;
+    color: #17233c;
+}
+
+.certificate-content {
+    padding: 75px 65px 40px;
+    text-align: center;
+}
+
+.small-title {
+    color: #9a7a15;
+    font-size: 13px;
+    letter-spacing: 5px;
+    font-weight: 800;
+}
+
+.main-title {
+    margin: 12px 0;
+    font-family: Georgia,serif;
+    font-size: 42px;
+}
+
+.gold-line {
+    width: 100px;
+    height: 3px;
+    margin: 18px auto 25px;
+    background: #c9a227;
+}
+
+.presented {
+    color: #777;
+}
+
+.student-name {
+    margin: 8px 0;
+    font-family: Georgia,serif;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.name-line {
+    width: 430px;
+    max-width: 90%;
+    height: 1px;
+    margin: auto;
+    background: #c9a227;
+}
+
+.description {
+    max-width: 700px;
+    margin: 22px auto;
+    color: #666;
+    line-height: 1.7;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    max-width: 850px;
+    margin: 25px auto;
+    border: 1px solid #ded9c9;
+}
+
+.detail {
+    padding: 14px;
+    border-right: 1px solid #ded9c9;
+}
+
+.detail:last-child {
+    border-right: none;
+}
+
+.detail-label {
+    display: block;
+    color: #9a7a15;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    font-weight: 700;
+}
+
+.performance {
+    display: inline-flex;
+    gap: 30px;
+    align-items: center;
+    padding: 15px 35px;
+    border: 2px solid #c9a227;
+    background: #fffdf5;
+}
+
+.performance-label {
+    color: #777;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.performance-value {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 35px;
+    padding: 0 40px;
+}
+
+.signature {
+    width: 190px;
+    text-align: center;
+}
+
+.signature-line {
+    border-top: 1px solid #17233c;
+    margin-bottom: 7px;
+}
+
+.signature-title {
+    font-size: 11px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.issue-date {
+    font-size: 11px;
+    color: #777;
+}
+
+.certificate-actions {
+    text-align: center;
+    padding: 20px;
+}
+
+.history {
+    margin-top: 25px;
+}
+
+.footer {
+    margin-top: 30px;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+    }
+
+    .detail {
+        border-right: none;
+        border-bottom: 1px solid #ded9c9;
+    }
+
+    .detail:last-child {
+        border-bottom: none;
+    }
+
+    .certificate-top {
+        padding: 25px;
+    }
+
+    .college-name {
+        max-width: 65%;
+        font-size: 17px;
+    }
+
+    .seal {
+        right: 18px;
+        width: 70px;
+        height: 70px;
+        font-size: 8px;
+    }
+
+    .certificate-content {
+        padding: 55px 18px 30px;
+    }
+
+    .main-title {
+        font-size: 29px;
+    }
+
+    .student-name {
+        font-size: 29px;
+    }
+
+    .certificate-footer {
+        padding: 0;
+    }
+
+    .signature {
+        width: 110px;
+    }
+
+    .performance {
+        width: 95%;
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+/* PRINT */
+
+@media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    body {
+        background: white !important;
+        padding: 0 !important;
+    }
+
+    body > * {
+        display: none !important;
+    }
+
+    #certificate {
+        display: block !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .certificate {
+        width: 100%;
+        min-height: 100vh;
+        box-shadow: none;
+    }
+
+    .certificate-actions {
+        display: none !important;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="header">
+    <div class="badge">IT DEPARTMENT</div>
+    <h1>GPA & CGPA Calculator</h1>
+    <div class="subtitle">
+        Kings College of Engineering • Academic Performance System
+    </div>
+</div>
+
+<div id="dialogue">
+    Enter your details and select your semester and grades to calculate GPA and CGPA.
+</div>
+
+<!-- STUDENT INFORMATION -->
+
+<div class="section">
+
+    <h2>🎓 Student Information</h2>
+
+    <div class="info-grid">
+
+        <div>
+            <label for="name">Student Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+
+        <div>
+            <label for="branch">Branch</label>
+            <input type="text" id="branch" placeholder="Example: B.Tech IT">
+        </div>
+
+        <div>
+            <label for="department">Department</label>
+            <input type="text" id="department" placeholder="Example: Information Technology">
+        </div>
+
+    </div>
+
+    <label for="year">📚 Select Year</label>
+
+    <select id="year" onchange="generateSemesters()">
+        <option value="">-- Select Year --</option>
+        <option value="1">Year 1</option>
+        <option value="2">Year 2</option>
+        <option value="3">Year 3</option>
+    </select>
+
+    <div id="semester-section" style="display:none;">
+
+        <label for="semester">Select Semester</label>
+
+        <select id="semester" onchange="generateSubjects()">
+            <option value="">-- Select Semester --</option>
+        </select>
+
+    </div>
+
+</div>
+
+<!-- SUBJECTS -->
+
+<div class="section">
+
+    <h2>📝 Subject-wise Grades & Credits</h2>
+
+    <div id="subjects-container">
+        <p style="color:#64748b;">
+            Select year and semester to display subjects.
+        </p>
+    </div>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+    <button onclick="calculateSemesterGPA()">
+        📊 Semester GPA
+    </button>
+
+    <button class="btn-green" onclick="calculateYearGPA()">
+        📈 Year GPA
+    </button>
+
+    <button class="btn-purple" onclick="calculateCGPA()">
+        🎯 Calculate CGPA
+    </button>
+
+    <button class="btn-orange" onclick="generateCertificate()">
+        📜 Generate Certificate
+    </button>
+
+    <button class="btn-dark" onclick="downloadCertificatePDF()">
+        📄 Save Certificate PDF
+    </button>
+
+    <button onclick="downloadResult()">
+        💾 Download TXT
+    </button>
+
+    <button class="btn-red" onclick="resetCalculator()">
+        🔄 Reset
+    </button>
+
+</div>
+
+<!-- RESULT -->
+
+<div id="result"></div>
+
+<!-- CHART -->
+
+<div class="chart-box">
+    <h2>📉 GPA Performance Chart</h2>
+    <canvas id="gpaChart"></canvas>
+</div>
+
+<!-- HISTORY -->
+
+<div class="section history">
+
+    <h2>📚 Semester Performance History</h2>
+
+    <div id="historyTable">
+        <p style="color:#64748b;">
+            No semester results calculated yet.
+        </p>
+    </div>
+
+</div>
+
+<div class="footer">
+
+    © 2026 All Rights Reserved By
+    @itz_me_lokesh.@_.oreo_.X@santhoshsandy_07.
+
+    <br>
+
+    <strong>
+        Note:
+    </strong>
+
+    This GPA & CGPA calculator is only for KCE students
+    studying at Kings College of Engineering, Punalkulam.
+
+</div>
+```
+
+</div>
+
+<!-- CERTIFICATE -->
+
+<div id="certificate"></div>
+
+<script>
+
+/* =========================================================
+   GRADE POINTS
+========================================================= */
+
+const gradePoints = {
+    "O": 10,
+    "A+": 9,
+    "A": 8,
+    "B+": 7,
+    "B": 6.5,
+    "C": 5,
+    "U": 0
+};
+
+
+/* =========================================================
+   SUBJECT DATA
+========================================================= */
+
+const subjectsData = {
+
+     1: {
+        1: { 
+            "Heritage of Tamils":1, 
+            "Professional English - I":2, 
+            "Engineering Mathematics I":4, 
+            "Environmental Sciences and Sustainability":2, 
+            "Problem Solving and Python Programming":3, 
+            "Engineering Graphics":4, 
+            "Engineering Practices Laboratory":2, 
+            "Problem Solving and Python Lab":2, 
+            "Communication Skills Lab":2 
+        },
+        2: { 
+            "Professional English II":2, 
+            "Transforms and partial differential equations":4, 
+            "Physics for building construction":3, 
+            "Engineering Chemistry":3, 
+            "Basic Electrical & Electronics and instrumentation Engineering":4, 
+            "Engineering mechanics":3, 
+            "Tamils and Technology":1, 
+            "Physics & Chemistry Lab":2, 
+            "Building drawing and drafting lab":2 
+        }
+    },
+    2: {
+        3: { 
+            "Numerical methods and statistics":4, 
+            "Strength of materials":3, 
+            "Mechanics of fluids":4, 
+            "Construction Materials and practices":4, 
+            "Surveying":3, 
+            "Engineering geology":3, 
+            "design thinking":1, 
+            "Surveying Lab":2,
+        },
+        4:{
+            "Concrete Technology":4,
+           "Applied Hydraulics Engineering":4,
+           "Geotechnical engineering-I":3,
+           "Environmental Engineering":3,
+           "Highway and railway engineering":3,
+           "universal human values-II":3,
+           "Environmental engineering lab":2,
+           "Highway and railway engineering lab":2,
+           "Communication Skills Laboratory-II":2,
+
+        }
+    }, 
+    3: {
+        5: { 
+            "Numerical methods and statistics":4, 
+            "Strength of materials":3, 
+            "Mechanics of fluids":4, 
+            "Construction Materials and practices":4, 
+            "Surveying":3, 
+            "Engineering geology":3, 
+            "design thinking":1, 
+            "Surveying Lab":2,
+        },
+        
+    }
+};
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentSubjects = {};
+let gpaChart = null;
+
+let semesterResults = JSON.parse(
+    localStorage.getItem("gpaSemesterResults") || "[]"
+);
+
+
+/* =========================================================
+   DIALOGUE
+========================================================= */
+
+function setDialogue(message) {
+
+    document.getElementById("dialogue").innerText = message;
+
+}
+
+
+/* =========================================================
+   SEMESTER GENERATION
+========================================================= */
+
+function generateSemesters() {
+
+    const year = document.getElementById("year").value;
+    const semester = document.getElementById("semester");
+
+    semester.innerHTML =
+        '<option value="">-- Select Semester --</option>';
+
+    document.getElementById("semester-section").style.display =
+        year ? "block" : "none";
+
+    document.getElementById("subjects-container").innerHTML = "";
+
+    currentSubjects = {};
+
+    if (!year) return;
+
+    setDialogue(
+        `Year ${year} selected. Choose your semester to continue.`
+    );
+
+    for (let sem in subjectsData[year]) {
+
+        semester.innerHTML += `
+            <option value="${sem}">
+                Semester ${sem}
+            </option>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   SUBJECT GENERATION
+========================================================= */
+
+function generateSubjects() {
+
+    const year = document.getElementById("year").value;
+    const semester = document.getElementById("semester").value;
+
+    const container =
+        document.getElementById("subjects-container");
+
+    container.innerHTML = "";
+
+    currentSubjects = {};
+
+    if (!semester) return;
+
+    currentSubjects =
+        subjectsData[year][semester];
+
+    setDialogue(
+        `Semester ${semester} selected. Enter grades for all subjects.`
+    );
+
+    let index = 0;
+
+    for (let subject in currentSubjects) {
+
+        const credits =
+            currentSubjects[subject];
+
+        const div =
+            document.createElement("div");
+
+        div.className = "subject";
+
+        div.innerHTML = `
+
+            <div class="subject-title">
+                ${subject}
+                <span class="credit">
+                    (${credits} Credit${credits > 1 ? "s" : ""})
+                </span>
+            </div>
+
+            <select
+                id="subject_${index}"
+                data-subject="${subject}"
+            >
+
+                <option value="">
+                    -- Select Grade --
+                </option>
+
+                <option value="O">O</option>
+                <option value="A+">A+</option>
+                <option value="A">A</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="U">U</option>
+
+            </select>
+        `;
+
+        container.appendChild(div);
+
+        index++;
+
+    }
+
+}
+
+
+/* =========================================================
+   CURRENT SEMESTER RESULT
+========================================================= */
+
+function getCurrentSemesterResult() {
+
+    if (
+        !currentSubjects ||
+        Object.keys(currentSubjects).length === 0
+    ) {
+        return null;
+    }
+
+    let totalCredits = 0;
+    let totalPoints = 0;
+    let index = 0;
+
+    const grades = {};
+
+    for (let subject in currentSubjects) {
+
+        const input =
+            document.getElementById("subject_" + index);
+
+        if (!input || !input.value) {
+            return null;
+        }
+
+        const grade = input.value;
+
+        totalCredits += currentSubjects[subject];
+
+        totalPoints +=
+            gradePoints[grade] *
+            currentSubjects[subject];
+
+        grades[subject] = grade;
+
+        index++;
+
+    }
+
+    return {
+
+        totalCredits,
+        totalPoints,
+        gpa: totalPoints / totalCredits,
+        grades
+
+    };
+
+}
+
+
+/* =========================================================
+   CLASSIFICATION
+========================================================= */
+
+function getClassification(gpa) {
+
+    if (gpa >= 9) {
+        return {
+            text: "Outstanding",
+            className: "excellent"
+        };
+    }
+
+    if (gpa >= 8) {
+        return {
+            text: "Excellent",
+            className: "excellent"
+        };
+    }
+
+    if (gpa >= 7) {
+        return {
+            text: "Very Good",
+            className: "very-good"
+        };
+    }
+
+    if (gpa >= 6) {
+        return {
+            text: "Good",
+            className: "good"
+        };
+    }
+
+    if (gpa >= 5) {
+        return {
+            text: "Average",
+            className: "average"
+        };
+    }
+
+    return {
+        text: "Needs Improvement",
+        className: "needs"
+    };
+
+}
+
+/* =========================================================
+   SHOW RESULT
+========================================================= */
+
+function showResult(title, value, classification) {
+
+    document.getElementById("result").innerHTML = `
+
+        <div class="result-card">
+
+            <h2>${title}</h2>
+
+            <div class="result-number">
+                ${value}
+            </div>
+
+            <div class="classification ${classification.className}">
+                🏆 ${classification.text}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SAVE SEMESTER
+========================================================= */
+
+function saveSemesterResult(result) {
+
+    const semester =
+        document.getElementById("semester").value;
+
+    const year =
+        document.getElementById("year").value;
+
+    const existingIndex =
+        semesterResults.findIndex(
+            item => item.semester === semester
+        );
+
+    const record = {
+
+        year,
+        semester,
+        gpa: result.gpa,
+        credits: result.totalCredits,
+        points: result.totalPoints,
+        grades: result.grades
+
+    };
+
+    if (existingIndex >= 0) {
+        semesterResults[existingIndex] = record;
+    } else {
+        semesterResults.push(record);
+    }
+
+    semesterResults.sort(
+        (a,b) => Number(a.semester) - Number(b.semester)
+    );
+
+    localStorage.setItem(
+        "gpaSemesterResults",
+        JSON.stringify(semesterResults)
+    );
+
+    updateHistory();
+
+}
+
+/* =========================================================
+   CALCULATE CUMULATIVE CGPA
+========================================================= */
+
+function getCGPA() {
+
+    if (semesterResults.length === 0) {
+        return null;
+    }
+
+    let totalPoints = 0;
+    let totalCredits = 0;
+
+    semesterResults.forEach(item => {
+
+        totalPoints += item.points;
+        totalCredits += item.credits;
+
+    });
+
+    return {
+
+        cgpa: totalPoints / totalCredits,
+        totalCredits,
+        totalPoints
+
+    };
+
+}
+
+
+/* =========================================================
+   SEMESTER GPA
+========================================================= */
+
+function calculateSemesterGPA() {
+
+    const result =
+        getCurrentSemesterResult();
+
+    if (!result) {
+
+        alert("Please select all subject grades!");
+
+        return;
+
+    }
+
+    saveSemesterResult(result);
+
+    const classification =
+        getClassification(result.gpa);
+
+    showResult(
+        "📊 Semester GPA",
+        result.gpa.toFixed(2),
+        classification
+    );
+
+    updateChart();
+
+    setDialogue(
+        "Semester GPA calculated successfully!"
+    );
+
+}
+
+
+/* =========================================================
+   YEAR GPA
+========================================================= */
+
+function calculateYearGPA() {
+
+    const year =
+        document.getElementById("year").value;
+
+    if (!year) {
+
+        alert("Please select a year!");
+
+        return;
+
+    }
+
+    const result =
+        getCurrentSemesterResult();
+
+    if (!result) {
+
+        alert(
+            "Please select all subject grades!"
+        );
+
+        return;
+
+    }
+
+    saveSemesterResult(result);
+
+    const yearRecords =
+        semesterResults.filter(
+            item => item.year === year
+        );
+
+    let points = 0;
+    let credits = 0;
+
+    yearRecords.forEach(item => {
+
+        points += item.points;
+        credits += item.credits;
+
+    });
+
+    const yearGPA =
+        points / credits;
+
+    const classification =
+        getClassification(yearGPA);
+
+    showResult(
+        `📈 Year ${year} GPA`,
+        yearGPA.toFixed(2),
+        classification
+    );
+
+    updateChart();
+
+    setDialogue(
+        `Year ${year} GPA calculated successfully!`
+    );
+
+}
+
+/* =========================================================
+   CGPA
+========================================================= */
+
+function calculateCGPA() {
+
+    const result =
+        getCurrentSemesterResult();
+
+    if (!result) {
+
+        alert(
+            "Please select all subject grades!"
+        );
+
+        return;
+
+    }
+
+    saveSemesterResult(result);
+
+    const cumulative =
+        getCGPA();
+
+    const classification =
+        getClassification(cumulative.cgpa);
+
+    showResult(
+        "🎯 Cumulative CGPA",
+        cumulative.cgpa.toFixed(2),
+        classification
+    );
+
+    updateChart();
+
+    setDialogue(
+        "Cumulative CGPA calculated successfully!"
+    );
+
+}
+
+/* =========================================================
+   CHART
+========================================================= */
+
+function updateChart() {
+
+    const canvas =
+        document.getElementById("gpaChart");
+
+    if (gpaChart) {
+        gpaChart.destroy();
+    }
+
+    if (semesterResults.length === 0) {
+        return;
+    }
+
+    const labels =
+        semesterResults.map(
+            item => "Sem " + item.semester
+        );
+
+    const values =
+        semesterResults.map(
+            item => Number(item.gpa.toFixed(2))
+        );
+
+    gpaChart =
+        new Chart(canvas, {
+
+            type: "line",
+
+            data: {
+
+                labels,
+
+                datasets: [{
+
+                    label: "Semester GPA",
+
+                    data: values,
+
+                    borderColor: "#06b6d4",
+
+                    backgroundColor:
+                        "rgba(6,182,212,.15)",
+
+                    fill: true,
+
+                    tension: .35,
+
+                    pointRadius: 6
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                scales: {
+
+                    y: {
+
+                        min: 0,
+
+                        max: 10,
+
+                        ticks: {
+                            stepSize: 1
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function updateHistory() {
+
+    const container =
+        document.getElementById("historyTable");
+
+    if (semesterResults.length === 0) {
+
+        container.innerHTML =
+            "<p>No semester results calculated yet.</p>";
+
+        return;
+
+    }
+
+    let html = `
+
+        <table>
+
+            <tr>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Credits</th>
+                <th>GPA</th>
+                <th>Classification</th>
+            </tr>
+
+    `;
+
+    semesterResults.forEach(item => {
+
+        const classification =
+            getClassification(item.gpa);
+
+        html += `
+
+            <tr>
+
+                <td>Year ${item.year}</td>
+
+                <td>Semester ${item.semester}</td>
+
+                <td>${item.credits}</td>
+
+                <td><strong>
+                    ${item.gpa.toFixed(2)}
+                </strong></td>
+
+                <td>
+                    ${classification.text}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+    const cumulative = getCGPA();
+
+    if (cumulative) {
+
+        html += `
+
+            <tr>
+
+                <th colspan="3">
+                    CUMULATIVE CGPA
+                </th>
+
+                <th colspan="2">
+                    ${cumulative.cgpa.toFixed(2)}
+                </th>
+
+            </tr>
+
+        `;
+
+    }
+
+    html += "</table>";
+
+    container.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   DOWNLOAD TXT
+========================================================= */
+
+function downloadResult() {
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const branch =
+        document.getElementById("branch").value.trim();
+
+    const department =
+        document.getElementById("department").value.trim();
+
+    if (!name || !branch || !department) {
+
+        alert(
+            "Please enter student name, branch and department!"
+        );
+
+        return;
+
+    }
+
+    if (semesterResults.length === 0) {
+
+        alert(
+            "Please calculate at least one semester GPA first!"
+        );
+
+        return;
+
+    }
+
+    const cumulative = getCGPA();
+
+    let text = "";
+
+    text += "========================================\n";
+    text += "       GPA & CGPA CALCULATOR\n";
+    text += "       KINGS COLLEGE OF ENGINEERING\n";
+    text += "========================================\n\n";
+
+    text += "STUDENT INFORMATION\n";
+    text += "----------------------------------------\n";
+
+    text += `Name        : ${name}\n`;
+    text += `Branch      : ${branch}\n`;
+    text += `Department  : ${department}\n\n`;
+
+    text += "SEMESTER RESULTS\n";
+    text += "----------------------------------------\n";
+
+    semesterResults.forEach(item => {
+
+        text +=
+            `Year ${item.year} | Semester ${item.semester} | ` +
+            `Credits: ${item.credits} | ` +
+            `GPA: ${item.gpa.toFixed(2)}\n`;
+
+    });
+
+    text += "\n";
+
+    text += "CUMULATIVE RESULT\n";
+    text += "----------------------------------------\n";
+
+    text +=
+        `CGPA: ${cumulative.cgpa.toFixed(2)}\n`;
+
+    text +=
+        `Classification: ${
+            getClassification(cumulative.cgpa).text
+        }\n`;
+
+    text += "\n========================================\n";
+    text += "Generated by GPA & CGPA Calculator\n";
+    text += "========================================\n";
+
+    const blob =
+        new Blob(
+            [text],
+            {
+                type: "text/plain;charset=utf-8"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        name.replace(/[^a-z0-9]/gi,"_") +
+        "_CGPA_Result.txt";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+
+function generateCertificate() {
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const branch =
+        document.getElementById("branch").value.trim();
+
+    const department =
+        document.getElementById("department").value.trim();
+
+    if (!name || !branch || !department) {
+
+        alert(
+            "Please enter all student information!"
+        );
+
+        return;
+
+    }
+
+    if (semesterResults.length === 0) {
+
+        alert(
+            "Please calculate at least one semester GPA first!"
+        );
+
+        return;
+
+    }
+
+    const cumulative = getCGPA();
+
+    const classification =
+        getClassification(cumulative.cgpa);
+
+    const today =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    const certificate =
+        document.getElementById("certificate");
+
+    certificate.innerHTML = `
+
+        <div class="certificate" id="certificate-content">
+
+            <div class="certificate-top">
+
+                <div class="college-name">
+                    KINGS COLLEGE OF ENGINEERING
+                </div>
+
+                <div class="location">
+                    Punalkulam, Tamil Nadu
+                </div>
+
+                <div class="seal">
+                    ACADEMIC<br>
+                    ACHIEVEMENT<br>
+                    2026
+                </div>
+
+            </div>
+
+            <div class="certificate-content">
+
+                <div class="small-title">
+                    CERTIFICATE OF RECOGNITION
+                </div>
+
+                <div class="main-title">
+                    Academic Achievement
+                </div>
+
+                <div class="gold-line"></div>
+
+                <div class="presented">
+                    This certificate is proudly presented to
+                </div>
+
+                <div class="student-name">
+                    ${escapeHTML(name)}
+                </div>
+
+                <div class="name-line"></div>
+
+                <div class="description">
+
+                    In recognition of outstanding academic
+                    performance demonstrated through the
+                    GPA and CGPA evaluation conducted by
+                    Kings College of Engineering.
+
+                </div>
+
+                <div class="details">
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Branch
+                        </span>
+
+                        <span class="detail-value">
+                            ${escapeHTML(branch)}
+                        </span>
+
+                    </div>
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Department
+                        </span>
+
+                        <span class="detail-value">
+                            ${escapeHTML(department)}
+                        </span>
+
+                    </div>
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Semesters
+                        </span>
+
+                        <span class="detail-value">
+                            ${semesterResults.length}
+                        </span>
+
+                    </div>
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Credits
+                        </span>
+
+                        <span class="detail-value">
+                            ${cumulative.totalCredits}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="performance">
+
+                    <div class="performance-label">
+                        Cumulative CGPA
+                    </div>
+
+                    <div class="performance-value">
+                        ${cumulative.cgpa.toFixed(2)}
+                    </div>
+
+                </div>
+
+                <div class="classification ${classification.className}"
+                     style="margin-left:10px;">
+
+                    ${classification.text}
+
+                </div>
+
+                <div class="certificate-footer">
+
+                    <div class="signature">
+
+                        <div class="signature-line"></div>
+
+                        <div class="signature-title">
+                            Student
+                        </div>
+
+                    </div>
+
+                    <div class="issue-date">
+
+                        Issued on<br>
+
+                        <strong>
+                            ${today}
+                        </strong>
+
+                    </div>
+
+                    <div class="signature">
+
+                        <div class="signature-line"></div>
+
+                        <div class="signature-title">
+                            Academic Coordinator
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="certificate-actions">
+
+            <button
+                class="btn-dark"
+                onclick="downloadCertificatePDF()">
+                📄 Save Certificate as PDF
+            </button>
+
+            <button
+                onclick="window.print()">
+                🖨️ Print Certificate
+            </button>
+
+        </div>
+
+    `;
+
+    certificate.style.display = "block";
+
+    certificate.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   DIRECT PDF DOWNLOAD
+========================================================= */
+
+async function downloadCertificatePDF() {
+
+    const element =
+        document.getElementById("certificate-content");
+
+    if (!element) {
+
+        alert(
+            "Please generate the certificate first!"
+        );
+
+        return;
+
+    }
+
+    try {
+
+        const canvas =
+            await html2canvas(
+                element,
+                {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: "#fdfcf8"
+                }
+            );
+
+        const image =
+            canvas.toDataURL("image/png");
+
+        const {
+            jsPDF
+        } = window.jspdf;
+
+        const pdf =
+            new jsPDF({
+                orientation: "landscape",
+                unit: "mm",
+                format: "a4"
+            });
+
+        const pageWidth =
+            pdf.internal.pageSize.getWidth();
+
+        const pageHeight =
+            pdf.internal.pageSize.getHeight();
+
+        const ratio =
+            Math.min(
+                pageWidth / canvas.width,
+                pageHeight / canvas.height
+            );
+
+        const width =
+            canvas.width * ratio;
+
+        const height =
+            canvas.height * ratio;
+
+        const x =
+            (pageWidth - width) / 2;
+
+        const y =
+            (pageHeight - height) / 2;
+
+        pdf.addImage(
+            image,
+            "PNG",
+            x,
+            y,
+            width,
+            height
+        );
+
+        const name =
+            document.getElementById("name").value
+            .trim()
+            .replace(/[^a-z0-9]/gi,"_");
+
+        pdf.save(
+            (name || "Student") +
+            "_Academic_Certificate.pdf"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "PDF generation failed. Please use the Print Certificate option."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetCalculator() {
+
+    const confirmReset =
+        confirm(
+            "Are you sure you want to reset the calculator?"
+        );
+
+    if (!confirmReset) {
+        return;
+    }
+
+    document.getElementById("name").value = "";
+    document.getElementById("branch").value = "";
+    document.getElementById("department").value = "";
+
+    document.getElementById("year").value = "";
+
+    document.getElementById("semester").innerHTML =
+        '<option value="">-- Select Semester --</option>';
+
+    document.getElementById("semester-section")
+        .style.display = "none";
+
+    document.getElementById("subjects-container")
+        .innerHTML =
+        "<p style='color:#64748b;'>Select year and semester to display subjects.</p>";
+
+    document.getElementById("result").innerHTML = "";
+
+    document.getElementById("certificate").innerHTML = "";
+
+    document.getElementById("certificate").style.display = "none";
+
+    currentSubjects = {};
+
+    semesterResults = [];
+
+    localStorage.removeItem("gpaSemesterResults");
+
+    updateHistory();
+
+    if (gpaChart) {
+
+        gpaChart.destroy();
+
+        gpaChart = null;
+
+    }
+
+    setDialogue(
+        "Calculator has been completely reset."
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+updateHistory();
+updateChart();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Iceberg", sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* ================= NAVBAR ================= */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #202d4d, #06b6d4);
+    color: white;
+    position: relative;
+}
+
+.nav img {
+    width: 55px;
+    height: 55px;
+    background: white;
+    border-radius: 10px;
+}
+
+.nav h1 {
+    font-size: 22px;
+    display: flex;
+    gap: 20px;
+}
+
+.nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.nav ul li {
+    list-style: none;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.nav ul li a:hover {
+    background: white;
+    color: #0f172a;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* ================= BANNER ================= */
+.banner {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url("lib.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.banner-content {
+    max-width: 700px;
+    color: white;
+}
+
+.banner-content h1 {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.banner-content p {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #0ea5e9;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #0284c7;
+}
+
+/* ================= INFO SECTION ================= */
+.info {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.column {
+    flex: 1 1 300px;
+    background: linear-gradient(135deg, #202d4d, #06b6d4);
+    padding: 25px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* ================= SECTIONS ================= */
+.section1,
+.section2 {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+.section1 h2,
+.section2 h2 {
+    color: #0f172a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.section1 img,
+.section2 img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.section1 p,
+.section2 p {
+    line-height: 1.7;
+    color: #334155;
+}
+.section1:hover { box-shadow: 2px 2px 12px 2px #000000; transition: 0.3s ease-in-out; } 
+.section2:hover { box-shadow: 2px 2px 12px 2px #000000; transition: 0.3s ease-in-out;}
+
+/* ================= FOOTER ================= */
+.project-footer {
+    background: linear-gradient(135deg, #202d4d, #06b6d4);
+    color: white;
+    padding: 40px 20px;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-section {
+    flex: 1 1 250px;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: black;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #cbd5e1;
+}
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef3f8;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+.navbar {
+     width: 100%;
+    height: 86px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+
+    background: rgba(20, 43, 73, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+
+        .logo {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #ffffff;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            
+            object-fit: contain;
+          
+        }
+
+        .college-name {
+            position: absolute;
+
+            left: 50%;
+            transform: translateX(-50%);
+
+            color: #ffffff;
+
+            font-size: 34px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        .nav-links {
+            margin-left: auto;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+
+            padding: 10px 25px;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 20px;
+            font-weight: 600;
+
+            border-radius: 8px;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            background: #2563eb;
+
+            color: #ffffff;
+        }
+
+
+        /* =========================
+           MOBILE BUTTON
+        ========================== */
+
+        .menu-btn {
+            display: none;
+
+            margin-left: auto;
+
+            width: 42px;
+            height: 42px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: rgba(255, 255, 255, 0.12);
+
+            color: white;
+
+            font-size: 22px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                height: 68px;
+
+                padding: 0 15px;
+
+                border-radius: 0 0 14px 14px;
+            }
+
+            .logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .college-name {
+                font-size: 14px;
+
+                max-width: 210px;
+
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .menu-btn {
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-links {
+                position: absolute;
+
+                top: 68px;
+                left: 0;
+
+                width: 100%;
+
+                padding: 10px;
+
+                display: none;
+
+                flex-direction: column;
+
+                gap: 4px;
+
+                background: #142b49;
+
+                border-radius: 0 0 14px 14px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+
+                text-align: center;
+
+                padding: 12px;
+            }
+        }
+
+
+        /* =========================
+           SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 450px) {
+
+            .college-name {
+                font-size: 12px;
+                max-width: 170px;
+            }
+
+            .logo {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    
